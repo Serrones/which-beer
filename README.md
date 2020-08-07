@@ -36,5 +36,7 @@ It returns a list beers by brew date, if you wish
 
 ### save the results in a file
 
-- save as json file `--json-file`
+If you choose one or both of the options below, the file(s) will be stored in host's Downloads folder
 
+- save as json file `--json-file`
+- save as csv file `--csv-file`

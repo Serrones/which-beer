@@ -5,7 +5,8 @@ from .helpers import (
     url_base,
     format_json,
     get_file_path,
-    create_json_file
+    create_json_file,
+    create_csv_file
 )
 
 app = typer.Typer()
@@ -14,7 +15,8 @@ app = typer.Typer()
 @app.command()
 def by_id(
     id_number: int,
-    json_file: bool=False
+    json_file: bool=False,
+    csv_file: bool=False
 ) -> None:
     """
     Returns a specific beer by id
@@ -31,17 +33,23 @@ def by_id(
             file_dir = get_file_path()
             file_name = file_dir + f'beer-{id_number}.json'
             create_json_file(file_name, response)
+
+        if csv_file:
+            file_dir = get_file_path()
+            file_name = file_dir + f'beer-{id_number}.csv'
+            create_csv_file(file_name, response)
+        
         typer.echo(beer)
+
     else:
-        message = (
-            'Please insert a valid number'
-        ) 
+        message = ('Please insert a valid number') 
         typer.echo(message)
 
 
 @app.command()
 def random(
-    json_file: bool=False
+    json_file: bool=False,
+    csv_file: bool=False
 ) -> None:
     """
     Returns a randomic beer
@@ -57,13 +65,21 @@ def random(
             beer_number = response.json()[0]['id']
             file_name = file_dir + f'beer-{beer_number}.json'
             create_json_file(file_name, response)
+
+    if csv_file:
+            file_dir = get_file_path()
+            beer_number = response.json()[0]['id']
+            file_name = file_dir + f'beer-{beer_number}.csv'
+            create_csv_file(file_name, response)
+
     typer.echo(beer)
 
 
 @app.command()
 def brewed_before(
     brew_date: str,
-    json_file: bool=False
+    json_file: bool=False,
+    csv_file: bool=False
 ) -> None:
     """
     Returns a list of beers brewed before
@@ -79,6 +95,12 @@ def brewed_before(
             file_dir = get_file_path()
             file_name = file_dir + f'beers-brewed-before-{brew_date}.json'
             create_json_file(file_name, response)
+
+    if csv_file:
+            file_dir = get_file_path()
+            file_name = file_dir + f'beers-brewed-before-{brew_date}.csv'
+            create_csv_file(file_name, response)
+
     typer.echo(beers)
 
 if __name__ == '__main__':

@@ -1,3 +1,4 @@
+import csv
 import json
 import os
 import requests
@@ -25,3 +26,18 @@ def create_json_file(
 ) -> None:
     with open(file_name, 'w') as outfile:
         json.dump(response.json(), outfile, indent=2)
+
+def create_csv_file(
+    file_name: str,
+    response: requests.models.Response
+) -> None:
+    with open(file_name, 'w') as outfile:
+        csv_writer = csv.writer(outfile)
+        count = 0
+
+        for beer in response.json():
+            if count == 0:
+                header = beer.keys()
+                csv_writer.writerow(header)
+                count += 1
+            csv_writer.writerow(beer.values())
