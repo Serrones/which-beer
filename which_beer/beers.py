@@ -1,7 +1,12 @@
-import json
-import os
 import requests
 import typer
+
+from .helpers import (
+    url_base,
+    format_json,
+    get_file_path,
+    create_json_file
+)
 
 app = typer.Typer()
 
@@ -10,25 +15,22 @@ app = typer.Typer()
 def by_id(
     id_number: int,
     json_file: bool=False
-):
+) -> None:
     """
     Returns a specific beer by id
 
     """
-    url_base = 'https://api.punkapi.com/v2/beers'
-    
     if id_number > 0:
-        url_base += f'/{str(id_number)}'
-        response = requests.get(url_base)
-        parsed = json.loads(response.text)
-        beer = json.dumps(parsed, indent=2)
+        url = url_base()
+        url += f'/{str(id_number)}'
+        
+        response = requests.get(url)
+        beer = format_json(response)
         
         if json_file:
-            root_dir = os.getcwd()
-            file_dir = root_dir + '/files/'
+            file_dir = get_file_path()
             file_name = file_dir + f'beer-{id_number}.json'
-            with open(file_name, 'w') as outfile:
-                json.dump(response.json(), outfile, indent=2)
+            create_json_file(file_name, response)
         typer.echo(beer)
     else:
         message = (
@@ -36,49 +38,47 @@ def by_id(
         ) 
         typer.echo(message)
 
+
 @app.command()
 def random(
     json_file: bool=False
-):
+) -> None:
     """
     Returns a randomic beer
     """
-    url = 'https://api.punkapi.com/v2/beers/random'
+    url = url_base()
+    url += '/random'
 
     response = requests.get(url)
-    parsed = json.loads(response.text)
-    beer = json.dumps(parsed, indent=2)
+    beer = format_json(response)
 
     if json_file:
-            root_dir = os.getcwd()
-            file_dir = root_dir + '/files/'
+            file_dir = get_file_path()
             beer_number = response.json()[0]['id']
             file_name = file_dir + f'beer-{beer_number}.json'
-            with open(file_name, 'w') as outfile:
-                json.dump(response.json(), outfile, indent=2)
+            create_json_file(file_name, response)
     typer.echo(beer)
+
 
 @app.command()
 def brewed_before(
     brew_date: str,
     json_file: bool=False
-):
+) -> None:
     """
     Returns a list of beers brewed before
     a given date, formated as mm-yyyy
     """
-    url = f'https://api.punkapi.com/v2/beers?brewed_before={brew_date}'
+    url = url_base()
+    url += f'?brewed_before={brew_date}'
    
     response = requests.get(url)
-    parsed = json.loads(response.text)
-    beers = json.dumps(parsed, indent=2)
+    beers = format_json(response)
     
     if json_file:
-            root_dir = os.getcwd()
-            file_dir = root_dir + '/files/'
+            file_dir = get_file_path()
             file_name = file_dir + f'beers-brewed-before-{brew_date}.json'
-            with open(file_name, 'w') as outfile:
-                json.dump(response.json(), outfile, indent=2)
+            create_json_file(file_name, response)
     typer.echo(beers)
 
 if __name__ == '__main__':
