@@ -2,7 +2,7 @@
 Do you wanna choose a good beer for you?
 Here you can see all details from a specif beer
 or get surprised with and randomic one.
-It returns a list beers by brew date, if you wish
+It returns a beers list by brew date, if you wish
 
 
 ## how to use
