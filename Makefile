@@ -2,7 +2,7 @@ test:
 	pytest -v
 
 lint:
-	python -m flake8
+	flake8 --show-source .
 	isort --check .
 
 format:
