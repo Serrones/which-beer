@@ -4,7 +4,6 @@ from datetime import datetime
 
 from typer.testing import CliRunner
 
-# WHICH_BEER
 # which_beer
 from which_beer.main import app
 

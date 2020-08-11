@@ -1,5 +1,4 @@
 # which_beer
-# WHICH_BEER
 from which_beer import __version__
 
 
