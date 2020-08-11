@@ -8,12 +8,12 @@ authors = ["Your Name <you@example.com>"]
 python = "^3.8"
 typer = "^0.3.1"
 requests = "^2.24.0"
-black = "^19.10b0"
-flake8 = "^3.8.3"
-isort = "^5.3.2"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
+black = "^19.10b0"
+flake8 = "^3.8.3"
+isort = "^5.3.2"
 
 [tool.poetry.scripts]
 punk = "which_beer.main:app"
