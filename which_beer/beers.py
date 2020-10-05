@@ -11,7 +11,7 @@ from .helpers import url_base
 app = typer.Typer()
 
 
-@app.command()
+@app.command('id')
 def by_id(
     id_number: int, json_file: bool = False, csv_file: bool = False
 ) -> None:
