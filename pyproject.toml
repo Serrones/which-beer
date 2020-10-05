@@ -17,6 +17,8 @@ isort = "^5.3.2"
 
 [tool.poetry.scripts]
 punk = "which_beer.main:app"
+
+[build-system]
 build-backend = "poetry.masonry.api"
 
 [tool.black]
