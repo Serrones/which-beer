@@ -25,7 +25,7 @@ def clean_files_folder():
 
 
 def test_app_should_create_json_file():
-    result = runner.invoke(app, ["beers", "by-id", "1", "--json-file"])
+    result = runner.invoke(app, ["beers", "id", "1", "--json-file"])
 
     file_path = get_file_path()
     file_list = os.listdir(file_path)
@@ -37,7 +37,7 @@ def test_app_should_create_json_file():
 
 
 def test_app_should_create_csv_file():
-    result = runner.invoke(app, ["beers", "by-id", "1", "--csv-file"])
+    result = runner.invoke(app, ["beers", "id", "1", "--csv-file"])
 
     file_path = get_file_path()
     file_list = os.listdir(file_path)
