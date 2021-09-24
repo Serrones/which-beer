@@ -19,7 +19,7 @@ It returns a beers list by brew date, if you wish
 
 - beers help `punk beers`
 
-- beer by id help `punk beers by-id --help`
+- beer by id help `punk beers id --help`
 
 - random beer help `punk beers random --help`
 
@@ -28,7 +28,7 @@ It returns a beers list by brew date, if you wish
 
 ### choose a beer
 
-- beer by id `punk beers by-id <number>`
+- beer by id `punk beers id <number>`
 
 - random beer `punk beers random`
 

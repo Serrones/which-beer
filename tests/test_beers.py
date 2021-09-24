@@ -12,7 +12,7 @@ runner = CliRunner()
 
 
 def test_app_should_get_beer_by_id():
-    result = runner.invoke(app, ["beers", "by-id", "1"])
+    result = runner.invoke(app, ["beers", "id", "1"])
     body = json.loads(result.stdout)
 
     assert result.exit_code == 0
